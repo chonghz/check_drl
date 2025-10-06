@@ -3,945 +3,853 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Dữ Liệu Hoạt Động Ngoại Khóa
-</title>
+    <title>Quản lý Hoạt động Rèn Luyện</title>
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    padding: 10px;
-    font-size: 14px; /* Font cơ bản nhỏ hơn */
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    overflow: hidden;
-}
-
-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px 15px;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 1.5em; /* Giảm từ 2.5em */
-    margin-bottom: 8px;
-}
-
-header p {
-    font-size: 0.9em; /* Giảm từ 1.1em */
-    opacity: 0.9;
-}
-
-.content {
-    padding: 20px 15px;
-}
-
-/* Search Box */
-.search-container {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.search-box {
-    width: 100%;
-    padding: 12px 45px 12px 15px;
-    font-size: 0.9em; /* Giảm từ 1.1em */
-    border: 2px solid #667eea;
-    border-radius: 8px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.search-box:focus {
-    border-color: #764ba2;
-    box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
-}
-
-.search-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.1em;
-    color: #667eea;
-}
-
-.search-results {
-    margin-top: 8px;
-    font-size: 0.85em; /* Giảm từ 0.95em */
-    color: #666;
-}
-
-.category {
-    margin-bottom: 25px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.category:hover {
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
-}
-
-.category-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 15px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1em; /* Giảm từ 1.3em */
-    font-weight: bold;
-}
-
-.category-header:hover {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-}
-
-.toggle-icon {
-    transition: transform 0.3s ease;
-    font-size: 0.9em;
-}
-
-.toggle-icon.rotated {
-    transform: rotate(180deg);
-}
-
-.category-content {
-    padding: 15px;
-    display: none;
-}
-
-.category-content.active {
-    display: block;
-}
-
-.criterion-item {
-    padding: 12px;
-    margin: 8px 0;
-    background: #f8f9fa;
-    border-left: 3px solid #667eea;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-.criterion-item:hover {
-    background: #e9ecef;
-    transform: translateX(5px);
-}
-
-.criterion-item.hidden {
-    display: none;
-}
-
-.criterion-item.highlight {
-    background: #fff3cd;
-    border-left-color: #ffc107;
-}
-
-.criterion-item input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    margin-right: 12px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.criterion-item label {
-    flex: 1;
-    cursor: pointer;
-    font-size: 0.9em; /* Giảm từ 1.05em */
-    line-height: 1.4;
-}
-
-.stats {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.stat-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px 15px;
-    border-radius: 12px;
-    text-align: center;
-    flex: 1;
-    min-width: 150px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-
-.stat-card h3 {
-    font-size: 2em; /* Giảm từ 2.5em */
-    margin-bottom: 8px;
-}
-
-.stat-card p {
-    font-size: 0.9em; /* Giảm từ 1.1em */
-    opacity: 0.9;
-}
-
-.donate-section {
-    margin-top: 25px;
-    padding: 25px 20px;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    border-radius: 12px;
-    text-align: center;
-    color: white;
-}
-
-.donate-section h3 {
-    font-size: 1.4em; /* Giảm từ 1.8em */
-    margin-bottom: 12px;
-}
-
-.donate-section p {
-    font-size: 0.95em; /* Giảm từ 1.2em */
-    margin-bottom: 15px;
-    line-height: 1.5;
-}
-
-.donate-image {
-    max-width: 250px;
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    border: 4px solid white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.action-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 25px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.95em; /* Giảm từ 1.1em */
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: white;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-}
-
-.btn-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(56, 239, 125, 0.4);
-}
-
-.btn-warning {
-    background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
-}
-
-.btn-warning:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(242, 201, 76, 0.4);
-}
-
-/* Responsive cho điện thoại */
-@media (max-width: 768px) {
-    body {
-        padding: 5px;
-        font-size: 13px;
-    }
-
-    header h1 {
-        font-size: 1.2em;
-    }
-
-    header p {
-        font-size: 0.85em;
-    }
-
-    .content {
-        padding: 15px 10px;
-    }
-
-    .category-header {
-        font-size: 0.9em;
-        padding: 12px;
-    }
-
-    .criterion-item {
-        padding: 10px;
-    }
-
-    .criterion-item label {
-        font-size: 0.85em;
-    }
-
-    .criterion-item input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
-        margin-right: 10px;
-    }
-
-    .stat-card {
-        min-width: 100px;
-        padding: 15px 10px;
-    }
-
-    .stat-card h3 {
-        font-size: 1.6em;
-    }
-
-    .stat-card p {
-        font-size: 0.8em;
-    }
-
-    .donate-section h3 {
-        font-size: 1.2em;
-    }
-
-    .donate-section p {
-        font-size: 0.85em;
-    }
-
-    .donate-image {
-        max-width: 200px;
-    }
-
-    .action-buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .btn {
-        width: 100%;
-        font-size: 0.9em;
-        padding: 10px 20px;
-    }
-
-    .search-box {
-        font-size: 0.85em;
-        padding: 10px 40px 10px 12px;
-    }
-}
-
-/* Responsive cho tablet */
-@media (min-width: 769px) and (max-width: 1024px) {
-    body {
-        font-size: 13.5px;
-    }
-
-    header h1 {
-        font-size: 1.8em;
-    }
-
-    .category-header {
-        font-size: 0.95em;
-    }
-
-    .criterion-item label {
-        font-size: 0.88em;
-    }
-}
-/* Footer */
-.footer {
-    margin-top: 30px;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    text-align: center;
-    border-radius: 0 0 15px 15px;
-}
-
-.footer p {
-    font-size: 0.9em;
-    margin: 0;
-    opacity: 0.95;
-}
-
-.footer strong {
-    font-weight: bold;
-    color: #fff;
-}
-
-/* Responsive cho footer */
-@media (max-width: 768px) {
-    .footer {
-        padding: 15px 10px;
-    }
-    
-    .footer p {
-        font-size: 0.8em;
-        line-height: 1.5;
-    }
-}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 20%, #48dbfb 40%, #ff9ff3 60%, #54a0ff 80%, #ff6b6b 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: linear-gradient(135deg, #D32F2F 0%, #E91E63 50%, #9C27B0 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(211, 47, 47, 0.4);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            opacity: 0.95;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .summary-card:nth-child(1) { animation-delay: 0.1s; }
+        .summary-card:nth-child(2) { animation-delay: 0.2s; }
+        .summary-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .summary-card:hover::before {
+            left: 100%;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .summary-card h3 {
+            font-size: 42px;
+            background: linear-gradient(135deg, #D32F2F, #E91E63, #9C27B0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            font-weight: bold;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .summary-card p {
+            color: #666;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px;
+            border: 3px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #D32F2F, #E91E63, #9C27B0) border-box;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(211, 47, 47, 0.3);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 12px 24px;
+            background: white;
+            border: 3px solid #ffcdd2;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D32F2F, #E91E63);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .filter-tab:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .filter-tab:hover {
+            color: white;
+            border-color: #D32F2F;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+        }
+
+        .filter-tab span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, #D32F2F, #E91E63, #9C27B0);
+            color: white;
+            border-color: transparent;
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(211, 47, 47, 0.4);
+        }
+
+        .category {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            animation: slideInLeft 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .category:hover {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .category-title {
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #D32F2F, #E91E63, #9C27B0, #3F51B5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, #D32F2F, #E91E63, #9C27B0) 1;
+            position: relative;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3F51B5, #2196F3);
+            transition: width 0.6s ease;
+        }
+
+        .category:hover .category-title::after {
+            width: 100%;
+        }
+
+        .activity-item {
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid #e3f2fd;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #D32F2F, #E91E63, #9C27B0);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .activity-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .activity-item:hover {
+            border-color: #D32F2F;
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(211, 47, 47, 0.2);
+            background: linear-gradient(135deg, #fff5f5 0%, #fce4ec 100%);
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            background: white;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .status-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background: inherit;
+            z-index: -1;
+            transition: transform 0.3s ease;
+        }
+
+        .activity-item:hover .status-icon::after {
+            transform: scale(1.2);
+            opacity: 0.5;
+        }
+
+        .status-icon.not-started {
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            border-color: #bdbdbd;
+            color: #757575;
+        }
+
+        .status-icon.pending {
+            background: linear-gradient(135deg, #FFF59D, #FFD54F);
+            border-color: #FFA000;
+            color: #F57F17;
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .status-icon.completed {
+            background: linear-gradient(135deg, #D32F2F, #E91E63);
+            border-color: #D32F2F;
+            color: white;
+            animation: checkmark 0.6s ease;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0) rotate(-45deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .activity-text {
+            flex: 1;
+            color: #333;
+            line-height: 1.6;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .activity-item:hover .activity-text {
+            color: #D32F2F;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(90deg, #f5f5f5, #e0e0e0);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #D32F2F, #E91E63, #9C27B0, #3F51B5);
+            background-size: 200% 100%;
+            border-radius: 15px;
+            transition: width 1s ease;
+            animation: shimmer 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: slide 1.5s infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-tabs {
+                flex-direction: column;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Add sparkle effect */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1s infinite;
+        }
     </style>
 </head>
 <body>
+    <!-- Floating particles -->
+    <script>
+        for(let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.width = Math.random() * 15 + 5 + 'px';
+            particle.style.height = particle.style.width;
+            document.body.appendChild(particle);
+        }
+    </script>
+
     <div class="container">
         <header>
-            <h1>🎓 Quản Lý Dữ Liệu Hoạt Động Ngoại Khóa</h1>
-            <p>Kiểm tra hoạt động trùng/ không trùng chỉ tiêu</p>
+            <h1>📋 Quản lý Hoạt động Rèn Luyện Sinh Viên</h1>
+            <p>Theo dõi và đánh dấu các hoạt động đã hoàn thành</p>
         </header>
 
-        <div class="content">
-            <!-- Thống kê -->
-            <div class="stats">
-                <div class="stat-card">
-                    <h3 id="totalChecked">0</h3>
-                    <p>Hoạt động đã làm</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="totalCriteria">0</h3>
-                    <p>Tổng hoạt động</p>
-                </div>
-                <div class="stat-card">
-                    <h3 id="completionRate">0%</h3>
-                    <p>Tỷ lệ hoàn thành</p>
-                </div>
+        <!-- <div class="summary">
+            <div class="summary-card">
+                <h3 id="totalCount">0</h3>
+                <p>📊 Tổng hoạt động</p>
             </div>
-
-            <!-- Search Box -->
-            <div class="search-container">
-                <input type="text" class="search-box" id="searchBox" placeholder="🔍 Tìm kiếm hoạt động..." oninput="searchCriteria()">
-                <span class="search-icon">🔍</span>
-                <div class="search-results" id="searchResults"></div>
+            <div class="summary-card">
+                <h3 id="pendingCount">0</h3>
+                <p>⏱️ Chờ xác nhận</p>
             </div>
-
-            <!-- Danh mục 1: Học tập -->
-            <div class="category">
-                <div class="category-header" onclick="toggleCategory('hoc-tap')">
-                    <span>📚 Học tập</span>
-                    <span class="toggle-icon" id="icon-hoc-tap">▼</span>
-                </div>
-                <div class="category-content" id="hoc-tap">
-                    <div class="criterion-item">
-                        <input type="checkbox" id="gpa-3.6" onchange="updateStats()">
-                        <label for="gpa-3.6">Có kết quả học tập ở mức GPA ≥ 3.6</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="gpa-3.2-3.6" onchange="updateStats()">
-                        <label for="gpa-3.2-3.6">Có kết quả học tập ở mức: 3.2 ≤ GPA < 3.6</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="gpa-2.5-3.2" onchange="updateStats()">
-                        <label for="gpa-2.5-3.2">Có kết quả học tập ở mức: 2.5 ≤ GPA < 3.2</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="gpa-2.0-2.5" onchange="updateStats()">
-                        <label for="gpa-2.0-2.5">Có kết quả học tập ở mức: 2.0 ≤ GPA < 2.5</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="gpa-1.5-2.0" onchange="updateStats()">
-                        <label for="gpa-1.5-2.0">Có kết quả học tập ở mức: 1.5 ≤ GPA < 2.0</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="no-luc" onchange="updateStats()">
-                        <label for="no-luc">Có nỗ lực trong học tập (GPA kỳ đánh giá cao hơn kỳ trước, giảm mức cảnh cáo học tập, hoặc duy trì điểm GPA trên 3.6)</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="ngoai-ngu" onchange="updateStats()">
-                        <label for="ngoai-ngu">Đạt trình độ ngoại ngữ theo tiến độ của chương trình đào tạo</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="toeic" onchange="updateStats()">
-                        <label for="toeic">Đạt chứng chỉ ngoại ngữ tương đương Toeic 600 điểm trở lên</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="nckh" onchange="updateStats()">
-                        <label for="nckh">Tham gia hoạt động, sự kiện liên quan đến NCKH, học thuật, chuyên môn</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="cong-bo" onchange="updateStats()">
-                        <label for="cong-bo">Tham gia công bố khoa học tại Hội nghị hoặc tạp chí KH chuyên ngành</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="clb-hoc-thuat" onchange="updateStats()">
-                        <label for="clb-hoc-thuat">Thành viên CLB học thuật, Lab nghiên cứu, Nhóm nghiên cứu, nhóm Khởi nghiệp</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="olympic" onchange="updateStats()">
-                        <label for="olympic">Tham gia các cuộc thi Olympic cấp Đại học, cấp quốc gia, quốc tế</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="dao-tao-ky-nang" onchange="updateStats()">
-                        <label for="dao-tao-ky-nang">Tham gia khóa đào tạo kỹ năng nghề nghiệp, kỹ năng bổ trợ chuyên môn</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="ke-hoach" onchange="updateStats()">
-                        <label for="ke-hoach">Có kế hoạch học tập và rèn luyện phù hợp được thầy cô ghi nhận</label>
-                    </div>
-                </div>
+            <div class="summary-card">
+                <h3 id="completedCount">0</h3>
+                <p>✅ Đã hoàn thành</p>
             </div>
+        </div> -->
 
-            <!-- Danh mục 2: Tổ chức ý thức kỷ luật -->
-            <div class="category">
-                <div class="category-header" onclick="toggleCategory('ky-luat')">
-                    <span>⚖️ Tổ chức ý thức kỷ luật</span>
-                    <span class="toggle-icon" id="icon-ky-luat">▼</span>
-                </div>
-                <div class="category-content" id="ky-luat">
-                    <div class="criterion-item">
-                        <input type="checkbox" id="sinh-hoat" onchange="updateStats()">
-                        <label for="sinh-hoat">Tham gia Sinh hoạt công dân do nhà trường tổ chức</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="hop-lop" onchange="updateStats()">
-                        <label for="hop-lop">Tham gia Họp lớp thường kỳ do Trường thuộc/Viện/Khoa tổ chức</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="quy-dinh" onchange="updateStats()">
-                        <label for="quy-dinh">Nắm vững quy định và quy chế của Nhà trường</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="thuc-tap" onchange="updateStats()">
-                        <label for="thuc-tap">Tham gia thực tập tăng cường năng lực nghề nghiệp tại doanh nghiệp</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="hoi-thao" onchange="updateStats()">
-                        <label for="hoi-thao">Tham gia hội thảo tăng cường kỹ năng mềm, phương pháp học tập, ý thức học tập, làm việc</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="phong-chong" onchange="updateStats()">
-                        <label for="phong-chong">Tham gia các buổi nói chuyện thời sự, phòng chống tội phạm và tệ nạn xã hội</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="huong-nghiep" onchange="updateStats()">
-                        <label for="huong-nghiep">Tham gia hoạt động hướng nghiệp, tìm kiếm thông tin việc làm</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="ky-nang-mem" onchange="updateStats()">
-                        <label for="ky-nang-mem">Tham gia khóa đào tạo kỹ năng mềm</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="khong-cam-thi" onchange="updateStats()">
-                        <label for="khong-cam-thi">Không bị cấm thi của tất cả các học phần trong kỳ học</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="tu-hoc" onchange="updateStats()">
-                        <label for="tu-hoc">Có tổng thời gian tự học tại thư viện, phòng tự học, hệ thống học tập trực tuyến ... được các đơn vị ghi nhận tối thiểu 160 giờ/kỳ</label>
-                    </div>
-                </div>
+        <!-- <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
+            <div class="progress-text" id="progressText">0% hoàn thành</div>
+        </div> -->
 
-            <!-- Danh mục 3: Hoạt động chính trị, xã hội, văn hóa, thể thao -->
-            <div class="category">
-                <div class="category-header" onclick="toggleCategory('van-hoa')">
-                    <span>🎭 Hoạt động chính trị, xã hội, văn hóa, thể thao</span>
-                    <span class="toggle-icon" id="icon-van-hoa">▼</span>
-                </div>
-                <div class="category-content" id="van-hoa">
-                    <div class="criterion-item">
-                        <input type="checkbox" id="van-nghe" onchange="updateStats()">
-                        <label for="van-nghe">Tham gia các cuộc thi biểu diễn văn hóa văn nghệ được tổ chức bởi các đơn vị hợp pháp (hát, múa, nhảy, đàn, sáo, vẽ tranh,...)</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="the-thao" onchange="updateStats()">
-                        <label for="the-thao">Tham gia các giải thể thao được tổ chức bởi các đơn vị hợp pháp (các môn thể thao chính thức như: chạy, bóng đá, cờ vua, bóng chuyền,...)</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="van-hoa-dan-toc" onchange="updateStats()">
-                        <label for="van-hoa-dan-toc">Tham gia các hoạt động phổ biến, tìm hiểu bản sắc văn hóa dân tộc, văn hóa địa phương, văn hóa trường học,...</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="the-duc" onchange="updateStats()">
-                        <label for="the-duc">Tham gia các hoạt động thể dục nâng cao sức khỏe được tổ chức bởi các đơn vị hợp pháp</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="co-vu" onchange="updateStats()">
-                        <label for="co-vu">Tham gia cổ vũ các hoạt động phong trào văn hóa, thể thao</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="clb-van-hoa" onchange="updateStats()">
-                        <label for="clb-van-hoa">Thành viên CLB/Tổ/Đội/Nhóm SV hợp pháp, hoạt động về văn nghệ, thể thao, tình nguyện, sở thích</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="tinh-nguyen" onchange="updateStats()">
-                        <label for="tinh-nguyen">Tham gia hoạt động tình nguyện (mùa hè xanh, tình nguyện tại chỗ, cổng trường ATGT)</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="coc-tra" onchange="updateStats()">
-                        <label for="coc-tra">Tham gia phong trào "cốc trà đá vì cộng đồng" "tuổi trẻ Bách khoa Nhân ái"</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="hien-mau" onchange="updateStats()">
-                        <label for="hien-mau">Tham gia hiến máu nhân đạo do Trường và các tổ chức hợp pháp phát động, tổ chức</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="dien-dan" onchange="updateStats()">
-                        <label for="dien-dan">Tham gia các diễn đàn sinh viên, các buổi toạ đàm với lãnh đạo Đại học, Trường thuộc/Viện/Khoa</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="online" onchange="updateStats()">
-                        <label for="online">Có hành động tích cực trên không gian mạng (hoạt động online) phù hợp với chủ trương của Nhà trường, Nhà nước được tập thể ghi nhận</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="doi-tinh-nguyen" onchange="updateStats()">
-                        <label for="doi-tinh-nguyen">Tham gia Đội tình nguyện hợp pháp trong và ngoài trường, tham gia chiến dịch tình nguyện "mùa hè xanh", "tình nguyện mùa đông", "tiếp sức mùa thi",...</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="khao-sat" onchange="updateStats()">
-                        <label for="khao-sat">Tham gia hoạt động khảo sát thông tin do Đại học thực hiện</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="chinh-tri" onchange="updateStats()">
-                        <label for="chinh-tri">Tham gia sự kiện chính trị - xã hội (các Đại hội, Hội nghị, cuộc họp của tổ chức Đảng Đoàn - Hội từ cấp Chi bộ - Chi đoàn - Chi hội trở lên,... và các chương trình mang tính chính trị - xã hội khác)</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="can-bo-xuat-sac" onchange="updateStats()">
-                        <label for="can-bo-xuat-sac">Cán bộ Tổ/Đội/CLB, Lớp, Đoàn - Hội, Chi bộ hoàn thành xuất sắc nhiệm vụ được tập thể công nhận</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="can-bo-tot" onchange="updateStats()">
-                        <label for="can-bo-tot">Cán bộ Tổ/Đội/CLB, Lớp, Đoàn - Hội, Chi bộ hoàn thành tốt nhiệm vụ được tập thể công nhận</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="can-bo" onchange="updateStats()">
-                        <label for="can-bo">Cán bộ Tổ/Đội/CLB, Lớp, Đoàn - Hội, Chi bộ - hoàn thành nhiệm vụ được tập thể công nhận</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Danh mục 4: Ý thức công dân -->
-            <div class="category">
-                <div class="category-header" onclick="toggleCategory('cong-dan')">
-                    <span>👥 Ý thức công dân trong quan hệ cộng đồng</span>
-                    <span class="toggle-icon" id="icon-cong-dan">▼</span>
-                </div>
-                <div class="category-content" id="cong-dan">
-                    <div class="criterion-item">
-                        <input type="checkbox" id="hieu-biet" onchange="updateStats()">
-                        <label for="hieu-biet">Hiểu biết và chấp hành pháp luật của Nhà nước, quy định của nhà trường và nơi cư trú</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="tuyen-truyen" onchange="updateStats()">
-                        <label for="tuyen-truyen">Tham gia tuyên truyền chủ trương của Đảng, chính sách pháp luật của Nhà nước, quy định của nơi cư trú, quy định và quy chế của nhà trường được địa phương, Nhà trường công nhận</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="khai-bao" onchange="updateStats()">
-                        <label for="khai-bao">Khai báo thông tin liên lạc và nơi cư trú theo yêu cầu của Đại học</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="an-ninh" onchange="updateStats()">
-                        <label for="an-ninh">Tham gia giữ gìn an ninh – trật tự, bảo vệ sinh cảnh quan - môi trường, nếp sống văn minh nơi công cộng, quảng bá hình ảnh đẹp của Nhà trường được địa phương, Nhà trường công nhận</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="khen-thuong" onchange="updateStats()">
-                        <label for="khen-thuong">Được giấy khen, bằng khen của tổ chức Đoàn, Hội, Nhà trường hoặc chính quyền địa phương</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="lop-dang" onchange="updateStats()">
-                        <label for="lop-dang">Đạt loại Khá trở lên khi tham gia học "Lớp bồi dưỡng nhận thức về Đảng"</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="dang-vien" onchange="updateStats()">
-                        <label for="dang-vien">Đối tượng Đảng được kết nạp Đảng hoặc Đảng viên dự bị được chuyển Đảng chính thức</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="sv-tot" onchange="updateStats()">
-                        <label for="sv-tot">Đạt danh hiệu Sinh viên năm tốt từ cấp Trường trở lên</label>
-                    </div>
-                    <div class="criterion-item">
-                        <input type="checkbox" id="huy-chuong" onchange="updateStats()">
-<label for="huy-chuong">Nhận bằng khen, huy chương tương đương cấp Bộ trở lên</label>
-</div>
-<div class="criterion-item">
-<input type="checkbox" id="giai-thuong" onchange="updateStats()">
-<label for="giai-thuong">Đạt giải trong các cuộc thi chính thức cấp Trường, cấp Thành phố, cấp Quốc gia, Quốc tế</label>
-</div>
-</div>
-</div>
-
-<!-- Phần Donate -->
-        <div class="donate-section">
-            <h3>💝 Ủng hộ dự án</h3>
-            <p>Nếu bạn thấy website hữu ích, hãy ủng hộ chúng tôi để duy trì và phát triển thêm nhiều tính năng mới!</p>
-            <p>3406205675241 Ngân hàng Agribank</p>
-            <img src="image.png" alt="QR Code Donate" class="donate-image">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm hoạt động...">
         </div>
 
-        <footer class="footer">
-                <p>Web được tạo bởi <strong>Tronghz K70 EE2 - 01</strong> ❤️ | © 2025 </p>
-                <p>liên hệ hỗ trợ: Trong.ND2512763@sis.hust.edu.vn💜</p>
-            </footer>
+        <div class="filter-tabs">
+            <div class="filter-tab active" onclick="filterActivities('all')"><span>🌟 Tất cả</span></div>
+            <div class="filter-tab" onclick="filterActivities('pending')"><span>⏱️ Chờ xác nhận</span></div>
+            <div class="filter-tab" onclick="filterActivities('completed')"><span>✅ Đã hoàn thành</span></div>
+            <div class="filter-tab" onclick="filterActivities('not-started')"><span>📝 Chưa làm</span></div>
+        </div>
+
+        <div id="activitiesContainer"></div>
     </div>
-</div>
 
-<script>
-    // Hàm toggle danh mục
-    function toggleCategory(categoryId) {
-        const content = document.getElementById(categoryId);
-        const icon = document.getElementById('icon-' + categoryId);
-        
-        if (content.classList.contains('active')) {
-            content.classList.remove('active');
-            icon.classList.remove('rotated');
-        } else {
-            content.classList.add('active');
-            icon.classList.add('rotated');
-        }
-    }
+    <script>
+        // Dữ liệu từ file txt
+        const activitiesData = `* Học tập
+Có kết quả học tập ở mức GPA ≥ 3.6
+Có kết quả học tập ở mức: 3.2 ≤ GPA < 3.6
+Có kết quả học tập ở mức: 2.5 ≤ GPA < 3.2
+Có kết quả học tập ở mức: 2.0 ≤ GPA < 2.5
+Có kết quả học tập ở mức: 1.5 ≤ GPA < 2.0
+Có nỗ lực trong học tập (GPA kỳ đánh giá cao hơn kỳ trước, giảm mức cảnh cáo học tập, hoặc duy trì điểm GPA trên 3.6)
+Đạt trình độ ngoại ngữ theo tiến độ của chương trình đào tạo
+Đạt chứng chỉ ngoại ngữ tương đương Toeic 600 điểm trở lên
+Tham gia hoạt động, sự kiện liên quan đến NCKH, học thuật, chuyên môn
+Tham gia công bố khoa học tại Hội nghị hoặc tạp chí KH chuyên ngành
+Thành viên CLB học thuật, Lab nghiên cứu, Nhóm nghiên cứu, nhóm Khởi nghiệp
+Tham gia các cuộc thi Olympic cấp Đại học, cấp quốc gia, quốc tế
+Tham gia khóa đào tạo kỹ năng nghề nghiệp, kỹ năng bổ trợ chuyên môn
+Có kế hoạch học tập và rèn luyện phù hợp được thầy cô ghi nhận
 
-    // Mở tất cả danh mục
-    function expandAll() {
-        const contents = document.querySelectorAll('.category-content');
-        const icons = document.querySelectorAll('.toggle-icon');
-        
-        contents.forEach(content => content.classList.add('active'));
-        icons.forEach(icon => icon.classList.add('rotated'));
-    }
+* Điểm về tổ chức ý thức kỷ luật
+Tham gia Sinh hoạt công dân do nhà trường tổ chức
+Tham gia Họp lớp thường kỳ do Trường thuộc/Viện/Khoa tổ chức
+Nằm vững quy định và quy chế của Nhà trường
+Tham gia thực tập tăng cường năng lực nghề nghiệp tại doanh nghiệp
+Tham gia hội thảo tăng cường kỹ năng mềm, phương pháp học tập, ý thức học tập, làm việc
+Tham gia các buổi nói chuyện thời sự, phòng chống tội phạm và tệ nạn xã hội
+Tham gia hoạt động hướng nghiệp, tìm kiếm thông tin việc làm
+Tham gia khóa đào tạo kỹ năng mềm
+Không bị cấm thi của tất cả các học phần trong kỳ học
+Có tổng thời gian tự học tại thư viện, phòng tự học, hệ thống học tập trực tuyến ... được các đơn vị ghi nhận tối thiểu 160 giờ/kỳ
 
-    // Thu gọn tất cả danh mục
-    function collapseAll() {
-        const contents = document.querySelectorAll('.category-content');
-        const icons = document.querySelectorAll('.toggle-icon');
-        
-        contents.forEach(content => content.classList.remove('active'));
-        icons.forEach(icon => icon.classList.remove('rotated'));
-    }
+* Điểm tham gia hoạt động chính trị, xã hội, văn hóa, thể thao
+Tham gia các cuộc thi biểu diễn văn hóa văn nghệ được tổ chức bởi các đơn vị hợp pháp (hát, múa, nhảy, đàn, sáo, vẽ tranh,...).
+Tham gia các giải thể thao được tổ chức bởi các đơn vị hợp pháp (các môn thể thao chính thức như: chạy, bóng đá, cờ vua, bóng chuyền,...).
+Tham gia các hoạt động phổ biến, tìm hiểu bản sắc văn hóa dân tộc, văn hóa địa phương, văn hóa trường học,...
+Tham gia các hoạt động thể dục nâng cao sức khỏe được tổ chức bởi các đơn vị hợp pháp
+Tham gia cổ vũ các hoạt động phong trào văn hóa, thể thao
+Thành viên CLB/Tổ/Đội/Nhóm SV hợp pháp, hoạt động về văn nghệ, thể thao, tình nguyện, sở thích
+Tham gia hoạt động tình nguyện (mùa hè xanh, tình nguyện tại chỗ, cổng trường ATGT)
+Tham gia phong trào "cốc trà đá vì cộng đồng"" tuổi trẻ Bách khoa Nhân ái"
+Tham gia hiến máu nhân đạo do Trường và các tổ chức hợp pháp phát động, tổ chức
+Tham gia các diễn đàn sinh viên, các buổi toạ đàm với lãnh đạo Đại học, Trường thuộc/Viện/Khoa
+Có hành động tích cực trên không gian mạng (hoạt động online) phù hợp với chủ trương của Nhà trường, Nhà nước được tập thể ghi nhận
+Tham gia Đội tình nguyện hợp pháp trong và ngoài trường, tham gia chiến dịch tình nguyện "mùa hè xanh", "tình nguyện mùa đông", "tiếp sức mùa thi",...
+Tham gia hoạt động khảo sát thông tin do Đại học thực hiện
+Tham gia sự kiện chính trị - xã hội (các Đại hội, Hội nghị, cuộc họp của tổ chức Đảng Đoàn - Hội từ cấp Chi bộ - Chi đoàn - Chi hội trở lên,... và các chương trình mang tính chính trị - xã hội khác)
+Cán bộ Tổ/Đội/CLB, Lớp, Đoàn - Hội, Chi bộ hoàn thành xuất sắc nhiệm vụ được tập thể công nhận
+Cán bộ Tổ/Đội/CLB, Lớp, Đoàn - Hội, Chi bộ hoàn thành tốt nhiệm vụ được tập thể công nhận
+Cán bộ Tổ/Đội/CLB, Lớp, Đoàn - Hội, Chi bộ - hoàn thành nhiệm vụ được tập thể công nhận
 
-    // Cập nhật thống kê
-    function updateStats() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const totalChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
-        const totalCriteria = checkboxes.length;
-        const completionRate = totalCriteria > 0 ? Math.round((totalChecked / totalCriteria) * 100) : 0;
+* Điểm ý thức công dân trong quan hệ cộng đồng
+Hiểu biết và chấp hành pháp luật của Nhà nước, quy định của nhà trường và nơi cu trú
+Tham gia tuyên truyền chủ trương của Đảng, chính sách pháp luật của Nhà nước, quy định của nơi cư trú, quy định và quy chế của nhà trường được địa phương, Nhà trường công nhận
+Khai báo thông tin liên lạc và nơi cư trú theo yêu cầu của Đại học
+Tham gia giữ gìn an ninh – trật tự, bảo vệ sinh cảnh quan - môi trường, nếp sống văn minh nơi công cộng, quảng bá hình ảnh đẹp của Nhà trường được địa phương, Nhà trường công nhận
+Được giấy khen, bằng khen của tổ chức Đoàn, Hội, Nhà trường hoặc chính quyền địa phương.
+Đạt loại Khá trở lên khi tham gia học "Lớp bồi dưỡng nhận thức về Đảng"
+Đối tượng Đảng được kết nạp Đảng hoặc Đảng viên dự bị được chuyển Đảng chính thức.
+Đạt danh hiệu Sinh viên năm tốt từ cấp Trường trở lên
+Nhận bằng khen, huy chương tương đương cấp Bộ trở lên
+Đạt giải trong các cuộc thi chính thức cấp Trường, cấp Thành phố, cấp Quốc gia, Quốc tế.`;
 
-        document.getElementById('totalChecked').textContent = totalChecked;
-        document.getElementById('totalCriteria').textContent = totalCriteria;
-        document.getElementById('completionRate').textContent = completionRate + '%';
-    }
+        // Parse dữ liệu
+        function parseActivities(text) {
+            const lines = text.split('\n').filter(line => line.trim());
+            const categories = [];
+            let currentCategory = null;
 
-    // Hàm tìm kiếm tiêu chí
-    function searchCriteria() {
-        const searchTerm = document.getElementById('searchBox').value.toLowerCase().trim();
-        const criterionItems = document.querySelectorAll('.criterion-item');
-        const categories = document.querySelectorAll('.category');
-        let foundCount = 0;
-        let visibleCategories = new Set();
-
-        // Reset tất cả
-        criterionItems.forEach(item => {
-            item.classList.remove('hidden', 'highlight');
-        });
-
-        if (searchTerm === '') {
-            // Nếu không có từ khóa, hiển thị tất cả
-            document.getElementById('searchResults').textContent = '';
-            categories.forEach(category => {
-                category.style.display = 'block';
-            });
-            return;
-        }
-
-        // Tìm kiếm
-        criterionItems.forEach(item => {
-            const label = item.querySelector('label').textContent.toLowerCase();
-            const category = item.closest('.category');
-
-            if (label.includes(searchTerm)) {
-                // Tìm thấy kết quả
-                item.classList.add('highlight');
-                foundCount++;
-                visibleCategories.add(category);
-            } else {
-                // Ẩn mục không khớp
-                item.classList.add('hidden');
-            }
-        });
-
-        // Hiển thị/ẩn danh mục
-        categories.forEach(category => {
-            if (visibleCategories.has(category)) {
-                category.style.display = 'block';
-                // Tự động mở danh mục có kết quả
-                const categoryId = category.querySelector('.category-content').id;
-                const content = document.getElementById(categoryId);
-                const icon = document.getElementById('icon-' + categoryId);
-                content.classList.add('active');
-                icon.classList.add('rotated');
-            } else {
-                category.style.display = 'none';
-            }
-        });
-
-        // Hiển thị kết quả tìm kiếm
-        if (foundCount > 0) {
-            document.getElementById('searchResults').innerHTML = 
-                `✅ Tìm thấy <strong>${foundCount}</strong> hoạt động phù hợp với "<strong>${searchTerm}</strong>"`;
-        } else {
-            document.getElementById('searchResults').innerHTML = 
-                `❌ Không tìm thấy hoạt động nào phù hợp với "<strong>${searchTerm}</strong>"`;
-        }
-    }
-
-    // Lưu dữ liệu vào LocalStorage
-    function saveData() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const data = {};
-        
-        checkboxes.forEach(checkbox => {
-            data[checkbox.id] = checkbox.checked;
-        });
-
-        localStorage.setItem('criteriaData', JSON.stringify(data));
-        alert('✅ Đã lưu dữ liệu thành công!');
-    }
-
-    // Tải dữ liệu từ LocalStorage
-    function loadData() {
-        const savedData = localStorage.getItem('criteriaData');
-        
-        if (savedData) {
-            const data = JSON.parse(savedData);
-            
-            Object.keys(data).forEach(key => {
-                const checkbox = document.getElementById(key);
-                if (checkbox) {
-                    checkbox.checked = data[key];
+            lines.forEach(line => {
+                if (line.startsWith('*')) {
+                    if (currentCategory) {
+                        categories.push(currentCategory);
+                    }
+                    currentCategory = {
+                        title: line.replace('*', '').trim(),
+                        activities: []
+                    };
+                } else if (currentCategory && line.trim()) {
+                    currentCategory.activities.push({
+                        text: line.trim(),
+                        status: 'not-started'
+                    });
                 }
             });
 
-            updateStats();
-            alert('✅ Đã tải dữ liệu thành công!');
-        } else {
-            alert('⚠️ Không tìm thấy dữ liệu đã lưu!');
-        }
-    }
-
-    // Xuất báo cáo
-    function exportData() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-        let report = '📊 BÁO CÁO TIÊU CHÍ ĐÁNH GIÁ SINH VIÊN\n';
-        report += '='.repeat(50) + '\n\n';
-        
-        const categories = {
-            'Học tập': [],
-            'Tổ chức ý thức kỷ luật': [],
-            'Hoạt động chính trị, xã hội, văn hóa, thể thao': [],
-            'Ý thức công dân trong quan hệ cộng đồng': []
-        };
-
-        checkboxes.forEach(checkbox => {
-            const label = checkbox.nextElementSibling.textContent;
-            const categoryHeader = checkbox.closest('.category').querySelector('.category-header span:first-child').textContent;
-            const categoryName = categoryHeader.replace(/[📚⚖️🎭👥]/g, '').trim();
-            
-            if (categories[categoryName]) {
-                categories[categoryName].push(label);
+            if (currentCategory) {
+                categories.push(currentCategory);
             }
-        });
 
-        Object.keys(categories).forEach(category => {
-            if (categories[category].length > 0) {
-                report += `\n📌 ${category.toUpperCase()}\n`;
-                report += '-'.repeat(50) + '\n';
-                categories[category].forEach((item, index) => {
-                    report += `${index + 1}. ${item}\n`;
+            return categories;
+        }
+
+        let categories = parseActivities(activitiesData);
+        let currentFilter = 'all';
+
+        // Load từ localStorage
+        const savedData = localStorage.getItem('activitiesStatus');
+        if (savedData) {
+            const statusMap = JSON.parse(savedData);
+            categories.forEach((cat, catIndex) => {
+                cat.activities.forEach((act, actIndex) => {
+                    const key = `${catIndex}-${actIndex}`;
+                    if (statusMap[key]) {
+                        act.status = statusMap[key];
+                    }
                 });
-                report += '\n';
+            });
+        }
+
+        function saveToLocalStorage() {
+            const statusMap = {};
+            categories.forEach((cat, catIndex) => {
+                cat.activities.forEach((act, actIndex) => {
+                    statusMap[`${catIndex}-${actIndex}`] = act.status;
+                });
+            });
+            localStorage.setItem('activitiesStatus', JSON.stringify(statusMap));
+        }
+
+        function toggleStatus(catIndex, actIndex) {
+            const activity = categories[catIndex].activities[actIndex];
+            if (activity.status === 'not-started') {
+                activity.status = 'pending';
+            } else if (activity.status === 'pending') {
+                activity.status = 'completed';
+            } else {
+                activity.status = 'not-started';
             }
-        });
-
-        const totalChecked = checkboxes.length;
-        const totalCriteria = document.querySelectorAll('input[type="checkbox"]').length;
-        const completionRate = Math.round((totalChecked / totalCriteria) * 100);
-
-        report += '\n📈 THỐNG KÊ\n';
-        report += '-'.repeat(50) + '\n';
-        report += `Hoạt động đã làm: ${totalChecked}/${totalCriteria}\n`;
-        report += `Tỷ lệ hoàn thành: ${completionRate}%\n`;
-        report += `Ngày xuất báo cáo: ${new Date().toLocaleString('vi-VN')}\n`;
-
-        // Tạo file text và tải xuống
-        const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `BaoCao_TieuChi_${new Date().getTime()}.txt`;
-        link.click();
-        URL.revokeObjectURL(url);
-
-        alert('✅ Đã xuất báo cáo thành công!');
-    }
-
-    // Reset dữ liệu
-    function resetData() {
-        if (confirm('⚠️ Bạn có chắc chắn muốn xóa tất cả dữ liệu?')) {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(checkbox => checkbox.checked = false);
-            updateStats();
-            localStorage.removeItem('criteriaData');
-            
-            // Reset search
-            document.getElementById('searchBox').value = '';
-            searchCriteria();
-            
-            alert('✅ Đã làm mới dữ liệu!');
+            saveToLocalStorage();
+            render();
+            createConfetti();
         }
-    }
 
-    // Tự động tải dữ liệu khi khởi động
-    window.addEventListener('load', function() {
-        const savedData = localStorage.getItem('criteriaData');
-        if (savedData) {
-            const data = JSON.parse(savedData);
-            Object.keys(data).forEach(key => {
-                const checkbox = document.getElementById(key);
-                if (checkbox) {
-                    checkbox.checked = data[key];
-                }
+        function getStatusIcon(status) {
+            if (status === 'pending') return '⏱️';
+            if (status === 'completed') return '✓';
+            return '';
+        }
+
+        function updateSummary() {
+            let total = 0;
+            let pending = 0;
+            let completed = 0;
+
+            categories.forEach(cat => {
+                cat.activities.forEach(act => {
+                    total++;
+                    if (act.status === 'pending') pending++;
+                    if (act.status === 'completed') completed++;
+                });
             });
-        }
-        updateStats();
-    });
 
-    // Tự động lưu khi có thay đổi
-    document.addEventListener('change', function(e) {
-        if (e.target.type === 'checkbox') {
-            saveData();
-        }
-    });
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('completedCount').textContent = completed;
 
-    // Xóa highlight khi xóa search
-    document.getElementById('searchBox').addEventListener('input', function() {
-        if (this.value === '') {
-            const criterionItems = document.querySelectorAll('.criterion-item');
-            criterionItems.forEach(item => {
-                item.classList.remove('highlight', 'hidden');
+            // Update progress bar
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${percentage}% hoàn thành (${completed}/${total} hoạt động)`;
+        }
+
+        function filterActivities(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.closest('.filter-tab').classList.add('active');
+            render();
+        }
+
+        function createConfetti() {
+            const colors = ['#D32F2F', '#E91E63', '#9C27B0', '#3F51B5', '#FFA000', '#4CAF50'];
+            for (let i = 0; i < 15; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.opacity = '1';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '9999';
+                confetti.style.transition = 'all 1s ease-out';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.style.top = '100vh';
+                    confetti.style.transform = `rotate(${Math.random() * 720}deg)`;
+                    confetti.style.opacity = '0';
+                }, 50);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 1100);
+            }
+        }
+
+        function render() {
+            const container = document.getElementById('activitiesContainer');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            container.innerHTML = '';
+
+            categories.forEach((category, catIndex) => {
+                const filteredActivities = category.activities.filter((act, actIndex) => {
+                    const matchesSearch = act.text.toLowerCase().includes(searchTerm);
+                    const matchesFilter = currentFilter === 'all' || act.status === currentFilter;
+                    return matchesSearch && matchesFilter;
+                });
+
+                if (filteredActivities.length === 0) return;
+
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'category-title';
+                titleDiv.textContent = category.title;
+                categoryDiv.appendChild(titleDiv);
+
+                category.activities.forEach((activity, actIndex) => {
+                    if (!filteredActivities.includes(activity)) return;
+
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'activity-item';
+                    itemDiv.onclick = () => toggleStatus(catIndex, actIndex);
+
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = `status-icon ${activity.status}`;
+                    iconDiv.textContent = getStatusIcon(activity.status);
+                    
+                    const textDiv = document.createElement('div');
+                    textDiv.className = 'activity-text';
+                    textDiv.textContent = activity.text;
+
+                    itemDiv.appendChild(iconDiv);
+                    itemDiv.appendChild(textDiv);
+                    categoryDiv.appendChild(itemDiv);
+                });
+
+                container.appendChild(categoryDiv);
             });
+
+            updateSummary();
         }
-    });
-</script>
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', render);
+
+        // Add sparkle effects to header
+        setInterval(() => {
+            const header = document.querySelector('header');
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = '0s';
+            header.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }, 300);
+
+        // Initial render
+        render();
+    </script>
+</body>
+</html>
