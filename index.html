@@ -84,11 +84,12 @@
             box-shadow: 0 3px 15px rgba(211, 47, 47, 0.1);
             margin-bottom: 20px;
             border: 2px solid #ffebee;
+            position: relative;
         }
 
         .search-box input {
             width: 100%;
-            padding: 15px;
+            padding: 15px 45px 15px 15px;
             border: 2px solid #ffcdd2;
             border-radius: 8px;
             font-size: 15px;
@@ -99,6 +100,34 @@
             outline: none;
             border-color: #d32f2f;
             background: #fff5f5;
+        }
+
+        .clear-search-btn {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffcdd2;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #d32f2f;
+            transition: all 0.2s;
+        }
+
+        .clear-search-btn:hover {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .clear-search-btn.show {
+            display: flex;
         }
 
         .filter-tabs {
@@ -425,6 +454,77 @@
             background: #fff5f5;
         }
 
+        .donate-btn {
+            grid-column: 1 / -1;
+            padding: 15px;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ff6b6b;
+            background: white;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .donate-btn:hover {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .donate-content {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .donate-content.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .donate-content img {
+            max-width: 250px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .donate-message {
+            font-size: 15px;
+            color: #d32f2f;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .donate-submessage {
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+        }
+
         .note-section {
             margin-bottom: 20px;
         }
@@ -519,7 +619,79 @@
             .status-buttons {
                 grid-template-columns: 1fr;
             }
+
+            .donate-content img {
+                max-width: 200px;
+            }
         }
+        .donate-popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s;
+}
+
+.donate-popup.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.donate-popup-content {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    animation: slideUp 0.3s;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.donate-popup-content img {
+    max-width: 280px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.donate-popup-message {
+    font-size: 18px;
+    color: #d32f2f;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.donate-popup-submessage {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.donate-popup-close {
+    background: linear-gradient(135deg, #d32f2f 0%, #e53935 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.donate-popup-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+}
     </style>
 </head>
 <body>
@@ -529,37 +701,16 @@
             <p>Theo dõi và đánh dấu các hoạt động</p>
         </header>
 
-        <!-- <div class="summary">
-            <div class="summary-card">
-                <h3 id="totalCount">0</h3>
-                <p>Tổng hoạt động</p>
-            </div>
-            <div class="summary-card">
-                <h3 id="pendingCount">0</h3>
-                <p>Chờ xác nhận</p>
-            </div>
-            <div class="summary-card">
-                <h3 id="completedCount">0</h3>
-                <p>Đã hoàn thành</p>
-            </div>
-        </div> -->
-
-        <!-- <div class="progress-container">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-            </div>
-            <div class="progress-text" id="progressText">0% hoàn thành</div>
-        </div> -->
-
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm hoạt động...">
+            <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()">×</button>
         </div>
 
         <div class="filter-tabs">
             <div class="filter-tab active" onclick="filterActivities('all')"><span>🌟 Tất cả</span></div>
             <div class="filter-tab" onclick="filterActivities('pending')"><span>⏱️ Chờ xác nhận</span></div>
             <div class="filter-tab" onclick="filterActivities('completed')"><span>✅ Đã hoàn thành</span></div>
-            <div class="filter-tab" onclick="filterActivities('not-started')"><span>📝 Chưa làm</span></div>
+            <div class="filter-tab" onclick="showDonatePopup()"><span>💝 Donate Admin</span></div>
         </div>
 
         <div id="activitiesContainer"></div>
@@ -596,6 +747,23 @@
                 <button class="btn btn-cancel" onclick="closeModal()">Hủy</button>
                 <button class="btn btn-save" onclick="saveActivity()">💾 Lưu</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Donate Popup -->
+    <div id="donatePopup" class="donate-popup">
+        <div class="donate-popup-content">
+            <img src="qr.png" alt="QR Code Donate">
+            <div class="donate-popup-message">
+                ❤️ Cảm ơn bạn đã ủng hộ!
+            </div>
+            <div class="donate-popup-submessage">
+                Mọi đóng góp của bạn đều giúp duy trì và phát triển ứng dụng tốt hơn
+            </div>
+            <div class="donate-popup-submessage">
+                3406205675241 - Ngân hàng Agribank - Nguyễn Đức Trọng
+            </div>
+            <button class="donate-popup-close" onclick="closeDonatePopup()">Đóng</button>
         </div>
     </div>
 
@@ -747,30 +915,30 @@ Nhận bằng khen, huy chương tương đương cấp Bộ trở lên
         }
 
         function setModalStatus(status) {
-    // Nếu là xóa đánh dấu, thực hiện reset và lưu ngay
-    if (status === 'not-started') {
-        if (currentEditingCat === null || currentEditingAct === null) return;
-        
-        const activity = categories[currentEditingCat].activities[currentEditingAct];
-        activity.status = 'not-started';
-        activity.note = '';
-        
-        // Reset form trong modal
-        document.getElementById('activityNote').value = '';
-        tempStatus = 'not-started';
-        
-        // Lưu và đóng modal
-        saveToLocalStorage();
-        closeModal();
-        render();
-        
-        return; // Kết thúc hàm sớm
-    }
-    
-    // Với các trạng thái khác, chỉ cập nhật tempStatus
-    tempStatus = status;
-    updateModalButtons();
-}
+            // Nếu là xóa đánh dấu, thực hiện reset và lưu ngay
+            if (status === 'not-started') {
+                if (currentEditingCat === null || currentEditingAct === null) return;
+                
+                const activity = categories[currentEditingCat].activities[currentEditingAct];
+                activity.status = 'not-started';
+                activity.note = '';
+                
+                // Reset form trong modal
+                document.getElementById('activityNote').value = '';
+                tempStatus = 'not-started';
+                
+                // Lưu và đóng modal
+                saveToLocalStorage();
+                closeModal();
+                render();
+                
+                return; // Kết thúc hàm sớm
+            }
+            
+            // Với các trạng thái khác, chỉ cập nhật tempStatus
+            tempStatus = status;
+            updateModalButtons();
+        }
 
         function updateModalButtons() {
             const pendingBtn = document.getElementById('pendingBtn');
@@ -787,16 +955,26 @@ Nhận bằng khen, huy chương tương đương cấp Bộ trở lên
         }
 
         function saveActivity() {
-    if (currentEditingCat === null || currentEditingAct === null) return;
-    
-    const activity = categories[currentEditingCat].activities[currentEditingAct];
-    activity.status = tempStatus;
-    activity.note = document.getElementById('activityNote').value.trim();
-    
-    saveToLocalStorage();
-    closeModal();
-    render();
-}
+            if (currentEditingCat === null || currentEditingAct === null) return;
+            
+            const activity = categories[currentEditingCat].activities[currentEditingAct];
+            activity.status = tempStatus;
+            activity.note = document.getElementById('activityNote').value.trim();
+            
+            saveToLocalStorage();
+            closeModal();
+            render();
+        }
+
+        function showDonatePopup() {
+            document.getElementById('donatePopup').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDonatePopup() {
+            document.getElementById('donatePopup').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
 
         function getStatusIcon(status) {
             if (status === 'pending') return '⏱️';
@@ -817,14 +995,23 @@ Nhận bằng khen, huy chương tương đương cấp Bộ trở lên
                 });
             });
 
-            document.getElementById('totalCount').textContent = total;
-            document.getElementById('pendingCount').textContent = pending;
-            document.getElementById('completedCount').textContent = completed;
+            const totalEl = document.getElementById('totalCount');
+            const pendingEl = document.getElementById('pendingCount');
+            const completedEl = document.getElementById('completedCount');
+            
+            if (totalEl) totalEl.textContent = total;
+            if (pendingEl) pendingEl.textContent = pending;
+            if (completedEl) completedEl.textContent = completed;
 
             // Update progress bar
-            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-            document.getElementById('progressFill').style.width = percentage + '%';
-            document.getElementById('progressText').textContent = `${percentage}% hoàn thành (${completed}/${total} hoạt động)`;
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            if (progressFill && progressText) {
+                const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+                progressFill.style.width = percentage + '%';
+                progressText.textContent = `${percentage}% hoàn thành (${completed}/${total} hoạt động)`;
+            }
         }
 
         function filterActivities(filter) {
@@ -832,6 +1019,23 @@ Nhận bằng khen, huy chương tương đương cấp Bộ trở lên
             document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
             event.target.closest('.filter-tab').classList.add('active');
             render();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            updateClearButton();
+            render();
+        }
+
+        function updateClearButton() {
+            const searchInput = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            
+            if (searchInput.value.trim() !== '') {
+                clearBtn.classList.add('show');
+            } else {
+                clearBtn.classList.remove('show');
+            }
         }
 
         function render() {
@@ -898,7 +1102,10 @@ Nhận bằng khen, huy chương tương đương cấp Bộ trở lên
         }
 
         // Event listeners
-        document.getElementById('searchInput').addEventListener('input', render);
+        document.getElementById('searchInput').addEventListener('input', function() {
+            updateClearButton();
+            render();
+        });
 
         // Close modal khi click bên ngoài
         document.getElementById('activityModal').addEventListener('click', function(e) {
@@ -907,15 +1114,29 @@ Nhận bằng khen, huy chương tương đương cấp Bộ trở lên
             }
         });
 
+        // Close donate popup khi click bên ngoài
+        document.getElementById('donatePopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDonatePopup();
+            }
+        });
+
         // Close modal khi nhấn ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                closeModal();
+                const activityModal = document.getElementById('activityModal');
+                const donatePopup = document.getElementById('donatePopup');
+                
+                if (activityModal.classList.contains('show')) {
+                    closeModal();
+                } else if (donatePopup.classList.contains('show')) {
+                    closeDonatePopup();
+                }
             }
         });
 
         // Initial render
         render();
+        updateClearButton();
     </script>
 </body>
-</html>
